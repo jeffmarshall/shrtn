@@ -11,6 +11,7 @@ Usage
 -----
 
 ::
+
   var redis = require('redis');
   var shrtn = require('shrtn');
 
