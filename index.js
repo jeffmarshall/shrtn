@@ -102,10 +102,16 @@ function expand(short, callback){
   var redisClient = getRedisClient();
 
   redisClient.get(short, function(err, response){
-    if (!err && response){
-      callback(response);
+    if (response){
+      callback({
+        'status': 'OK',
+        'long': response
+      });
     } else {
-      callback(err);
+      callback({
+        'status': 'ERROR',
+        'message': 'Key not found'
+      });
     }
   });
 }

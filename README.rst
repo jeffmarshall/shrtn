@@ -15,20 +15,21 @@ Usage
   var redis = require('redis');
   var shrtn = require('shrtn');
 
-  var redisClient = redis.createClient();
+  shrtn.config.set('redis client', redis.createClient());
+
   var shortId = '';
 
   // shortening
-  shrtn.shorten('http://google.com', redisClient, function(error, response){
-    if(!error){
+  shrtn.shorten('http://google.com', function(response){
+    if(response.status === 'OK'){
       shortId = response.shortId;
-      console.log(response.long + " -> " + response.shortId);
+      console.log(response.long + ' -> ' + response.shortId);
     }
   });
 
   // expanding
-  shrtn.expand(shortId, redisClient, function(error, response){
-    if (!error){
+  shrtn.expand(shortId, function(response){
+    if (response.status === 'OK'){
       console.log(shortId + ' -> ' + response);
     }
   });
