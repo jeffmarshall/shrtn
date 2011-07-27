@@ -17,7 +17,7 @@ Installation
 
 or, once it's on NPM:
 
-`npm install shrtn`
+``npm install shrtn``
 
 
 Usage
