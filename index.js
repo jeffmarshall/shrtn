@@ -107,11 +107,15 @@ function expand(short, callback){
         'status': 'OK',
         'long': response
       });
-    } else {
+      return true;
+    }
+
+    else {
       callback({
         'status': 'ERROR',
         'message': 'Key not found'
       });
+      return false;
     }
   });
 }
