@@ -7,6 +7,19 @@ Requirements:
 - redis
 
 
+Installation
+------------
+
+::
+
+  cd /path/to/shrtn
+  npm install
+
+or, once it's on NPM:
+
+``npm install shrtn``
+
+
 Usage
 -----
 
