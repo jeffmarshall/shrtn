@@ -87,7 +87,7 @@ function shorten(long, callback){
       if(res){
         var response = {
           'status': 'OK',
-          'short': newId,
+          'id': newId,
           'long': long
         }
 
@@ -103,15 +103,15 @@ function shorten(long, callback){
 }
 
 
-function expand(short, callback){
+function expand(id, callback){
   var redisClient = getRedisClient();
 
-  redisClient.get(short, function(err, response){
+  redisClient.get(id, function(err, response){
     if (response){
       var result = {
         'status': 'OK',
         'long': response,
-        'short': short
+        'id': id
       }
 
       callback(result);
@@ -137,4 +137,4 @@ shrtn.config = config;
 shrtn.shorten = shorten;
 shrtn.expand = expand;
 
-module.exports = shrtn
+module.exports = shrtn;

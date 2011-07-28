@@ -5,6 +5,6 @@ shrtn.config.set('redis client', redis.createClient());
 
 shrtn.shorten('http://google.com/', function(response){
   if (response.status === 'OK'){
-    console.log(response.shortId); 
+    console.log(response.id); 
   }
 });

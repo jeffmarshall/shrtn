@@ -22,13 +22,13 @@ var someKey = shrtn.config.get('some key', 'fallback value'); // < 'fallback val
 
 shrtn.shorten('http://google.com/', function(response){
   if (response.status === 'OK'){
-    console.log(response.long +' -> '+response.shortId); // should be 6 random digits
+    console.log(response.long +' -> '+response.id); // should be 6 random digits
   }
 });
 
 
 shrtn.on('shortened', function(shortened_response){
-  shrtn.expand(shortened_response.short, function(expanded_response){
-    console.log(expanded_response.short +' -> '+ expanded_response.long);
+  shrtn.expand(shortened_response.id, function(expanded_response){
+    console.log(expanded_response.id +' -> '+ expanded_response.long);
   });
 });

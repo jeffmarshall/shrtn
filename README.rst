@@ -30,19 +30,19 @@ Usage
 
   shrtn.config.set('redis client', redis.createClient());
 
-  var shortId = '';
+  var id;
 
   // shortening
   shrtn.shorten('http://google.com', function(response){
     if(response.status === 'OK'){
-      shortId = response.shortId;
-      console.log(response.long + ' -> ' + response.shortId);
+      id = response.id;
+      console.log(response.long + ' -> ' + response.id);
     }
   });
 
   // expanding
-  shrtn.expand(shortId, function(response){
+  shrtn.expand(id, function(response){
     if (response.status === 'OK'){
-      console.log(shortId + ' -> ' + response);
+      console.log(id + ' -> ' + response);
     }
   });
