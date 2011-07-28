@@ -1,4 +1,5 @@
 var redis = require('redis');
+var events = require('events');
 
 function Config(){
   var config = {
@@ -43,12 +44,14 @@ function generateId(callback){
   var redisClient = getRedisClient();
   var chars = config.get('chars').toString();
   var keyLength = new Number(config.get('key length'));
-  //
+  
   // check for the number of existing keys
   redisClient.keys('*', function(error, response){
+
     // while half of the number of possible random keys
     // is less than the number of keys set, increase the
-    // number of random keys possible
+    // number of random keys possible by increasing key 
+    // length.
     
     while(Math.pow(chars.length, keyLength)/2 < response.length){
       keyLength ++;
@@ -74,7 +77,8 @@ function shorten(long, callback){
       'message': 'Invalid URL: '+ long
     }
 
-    callback ? callback(response) : null
+    callback ? callback(response) : null;
+    shrtn.emit('error', response);
     return false;
   }
 
@@ -83,12 +87,13 @@ function shorten(long, callback){
       if(res){
         var response = {
           'status': 'OK',
-          'shortId': newId,
+          'short': newId,
           'long': long
         }
 
         callback ? callback(response) : null;
-        return true
+        shrtn.emit('shortened', response);
+        return true;
       } else {
         // the attempted ID is taken
         shorten(long, callback);
@@ -103,26 +108,33 @@ function expand(short, callback){
 
   redisClient.get(short, function(err, response){
     if (response){
-      callback({
+      var result = {
         'status': 'OK',
-        'long': response
-      });
+        'long': response,
+        'short': short
+      }
+
+      callback(result);
+      shrtn.emit('expanded', result);
       return true;
     }
 
     else {
-      callback({
+      var result = {
         'status': 'ERROR',
         'message': 'Key not found'
-      });
+      }
+
+      callback(result);
+      shrtn.emit('error', result);
       return false;
     }
   });
 }
 
+var shrtn = new events.EventEmitter();
+shrtn.config = config;
+shrtn.shorten = shorten;
+shrtn.expand = expand;
 
-module.exports = {
-  config: config,
-  shorten: shorten,
-  expand: expand
-}
+module.exports = shrtn
