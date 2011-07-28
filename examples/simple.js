@@ -1,13 +1,10 @@
-var shrtn = require('../');
 var redis = require('redis');
+var shrtn = require('shrtn');
 
-var redisClient = redis.createClient();
+shrtn.config.set('redis client', redis.createClient());
 
-console.log('Shortening "http://google.com"');
-shrtn.shorten('http://google.com', redisClient, function(error, result){
-  if(!error){
-    console.log('Short Id: '+ result.shortId);
-  } else {
-    console.log('There was an error: \n', error);
+shrtn.shorten('http://google.com/', function(response){
+  if (response.status === 'OK'){
+    console.log(response.shortId); 
   }
 });
