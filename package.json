@@ -8,7 +8,7 @@
   },
   "organization": "Classy",
   "keywords": ["url", "shortener", "shortening", "redis", "classy"],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "redis": ">= 0.6.6"
   },
