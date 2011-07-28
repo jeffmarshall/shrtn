@@ -77,7 +77,7 @@ function shorten(long, callback){
       'message': 'Invalid URL: '+ long
     }
 
-    callback ? callback(response) : null;
+    if(typeof(callback) === 'function'){callback(response)}
     shrtn.emit('error', response);
     return false;
   }
@@ -91,7 +91,7 @@ function shorten(long, callback){
           'long': long
         }
 
-        callback ? callback(response) : null;
+        if(typeof(callback) === 'function'){callback(response)}
         shrtn.emit('shortened', response);
         return true;
       } else {
@@ -114,7 +114,7 @@ function expand(id, callback){
         'id': id
       }
 
-      callback(result);
+      if(typeof(callback) === 'function'){callback(response)}
       shrtn.emit('expanded', result);
       return true;
     }
@@ -125,7 +125,7 @@ function expand(id, callback){
         'message': 'Key not found'
       }
 
-      callback(result);
+      if(typeof(callback) === 'function'){callback(response)}
       shrtn.emit('error', result);
       return false;
     }
