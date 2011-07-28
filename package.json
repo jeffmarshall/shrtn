@@ -1,5 +1,6 @@
 {
   "name": "shrtn",
+  "description": "Low-fat URL shortener",
   "author": {
     "name": "Jeff Marshall",
     "email": "jeff@iamjeffmarshall.ca",
