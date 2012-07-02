@@ -15,7 +15,7 @@ Installation
   cd /path/to/shrtn
   npm install
 
-or, once it's on NPM:
+or with NPM:
 
 ``npm install shrtn``
 
